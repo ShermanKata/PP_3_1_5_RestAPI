@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class UserService implements UserDetailsService {
+public class UserServiceImp implements UserDetailsService {
 
     private UserDao userDao;
 
-    public UserService(UserDao userDao) {
+    public UserServiceImp(UserDao userDao) {
         this.userDao = userDao;
     }
 
@@ -38,8 +38,6 @@ public class UserService implements UserDetailsService {
     public List<User> getListOfUsers() {
         return userDao.getListOfUsers();
     }
-
-
 
     @Transactional
     public void addUser(User user) {
