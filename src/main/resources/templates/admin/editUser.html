@@ -22,9 +22,12 @@
     <label for="password">Enter password:</label>
     <input type="password" th:field="*{password}" id="password">
     <br/>
-    <p>Roles:</p>
-    <p><input type="checkbox" th:field="*{roles}" name="User" value="ROLE_USER"> User</p>
-    <p><input type="checkbox" th:field="*{roles}" name="Admin" value="ROLE_ADMIN"> Admin</p>
+    <label for="role_select">Roles</label>
+    <select multiple class="form-control" th:field="*{roles}" id="role_select">
+        <option th:each="role : ${listRoles}"
+                th:value="${role.getName()}"
+                th:text="${role.getName()}"></option>
+    </select>
     <br/>
     <input type="submit" value="Update">
 </form>
