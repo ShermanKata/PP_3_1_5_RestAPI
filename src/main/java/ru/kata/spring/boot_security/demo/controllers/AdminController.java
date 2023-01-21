@@ -8,6 +8,7 @@ import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.RoleServiceImp;
 import ru.kata.spring.boot_security.demo.service.UserServiceImp;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,8 @@ public class AdminController {
     }
 
     @GetMapping
-    public String getAdminPage(Model model) {
+    public String getAdminPage(Model model, Principal principal) {
+        model.addAttribute("user", userServiceImp.getUserByUsername(principal.getName()));
         model.addAttribute("users", userServiceImp.getListOfUsers());
         return "admin/adminPage";
     }
