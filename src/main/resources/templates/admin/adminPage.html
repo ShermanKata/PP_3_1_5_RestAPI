@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"/>
+<html lang="en">
 <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Panel</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
 </head>
 <body>
+<!--Шапка-->
 <nav class="navbar navbar-dark bg-dark">
     <div class="container-fluid">
         <div th:object="${user}">
@@ -21,64 +24,185 @@
         </div>
     </div>
 </nav>
-
+<!--Шапка-->
+<!--Тело-->
 <div class="container-fluid">
     <div class="row">
-        <div class="col-sm-2 pt-3 g-0">
-            <div class="container-fluid">
-                <div class="nav flex-column nav-pills" role="tablist">
-                    <a class="nav-link active" data-bs-toggle="pill" href="#"
+        <!--Навигация-->
+        <div class="col-2 pt-3 g-0">
+            <ul class="nav flex-column nav-pills" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="pill" href="#admin"
                        role="tab">Admin</a>
-                </div>
-            </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#user"
+                       role="tab">User</a>
+                </li>
+            </ul>
         </div>
+        <!--Навигация-->
         <div class="col-sm-10 bg-light min-vh-100 pt-3">
-            <div class="container">
-                <h1>Admin panel</h1>
-                <div class="card">
-                    <div class="card-header">
-                        <h5><span class="align-middle">All users</span></h5>
-                    </div>
-                    <div class="card-body table-responsive">
-                        <hr style="color: gray"/>
-                        <table class="table table-striped ">
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>First Name</th>
-                                <th>Last Name</th>
-                                <th>Age</th>
-                                <th>Email</th>
-                                <th>Role</th>
-                                <th>Edit</th>
-                                <th>Delete</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="user : ${users}">
-                                <td th:text="${user.getId()}"></td>
-                                <td th:text="${user.getUsername()}"></td>
-                                <td th:text="${user.getLastname()}"></td>
-                                <td th:text="${user.getAge()}"></td>
-                                <td th:text="${user.getEmail()}"></td>
-                                <td th:text="${user.getStringRoles()}"></td>
-                                <td>
-                                    <a th:href="@{/admin/{id} (id = ${user.getId()})}">
-                                        <input class="btn btn-info btn-sm"  type="button" value="Edit"/>
-                                    </a></td>
-                                <td>
-                                    <form th:method="DELETE" th:action="@{/admin/{id}/delete(id=${user.getId()})}">
-                                        <input class="btn btn-danger btn-sm" type="submit" value="Delete">
-                                    </form>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <div class="tab-content" id="myTabContent">
+                <!--Страница админа-->
+                <div class="tab-pane fade show active" id="admin" role="tabpanel" aria-labelledby="admin-tab">
+                    <div class="container-fluid">
+                        <h1>Admin panel</h1>
+                        <!--Навигаци по вкладкам-->
+                        <ul class="nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link active" id="all-users-tab" data-bs-toggle="tab"
+                                        data-bs-target="#all-users" type="button" role="tab" aria-controls="all-users"
+                                        aria-selected="true">Users table
+                                </button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link" id="new-user-tab" data-bs-toggle="tab"
+                                        data-bs-target="#new-user"
+                                        type="button" role="tab" aria-controls="new-user" aria-selected="false">New User
+                                </button>
+                            </li>
+                        </ul>
+                        <!--Навигаци по вкладкам-->
+                        <div class="tab-content" id="adminTabContent">
+                            <!--Все пользователи-->
+                            <div class="tab-pane fade show active" id="all-users" role="tabpanel"
+                                 aria-labelledby="all-users-tab">
+                                <!--Таблица пользователей-->
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><span class="align-middle">All users</span></h5>
+                                    </div>
+                                    <div class="card-body table-responsive">
+                                        <hr style="color: gray"/>
+                                        <table class="table table-striped ">
+                                            <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>First Name</th>
+                                                <th>Last Name</th>
+                                                <th>Age</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr th:each="user : ${users}">
+                                                <td th:text="${user.getId()}"></td>
+                                                <td th:text="${user.getUsername()}"></td>
+                                                <td th:text="${user.getLastname()}"></td>
+                                                <td th:text="${user.getAge()}"></td>
+                                                <td th:text="${user.getEmail()}"></td>
+                                                <td th:text="${user.getStringRoles()}"></td>
+                                                <td>
+                                                    <a th:href="@{/admin/{id} (id = ${user.getId()})}">
+                                                        <input class="btn btn-info btn-sm" type="button" value="Edit"/>
+                                                    </a></td>
+                                                <td>
+                                                    <form th:method="DELETE"
+                                                          th:action="@{/admin/{id}/delete(id=${user.getId()})}">
+                                                        <input class="btn btn-danger btn-sm" type="submit"
+                                                               value="Delete">
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <!--Таблица пользователей-->
+                            </div>
+                            <!--Все пользователи-->
+                            <!--Новый пользователь-->
+                            <div class="tab-pane fade" id="new-user" role="tabpanel" aria-labelledby="new-user-tab">
+
+
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h5><span class="align-middle">Add new user</span></h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="mx-auto p-4 text-center fw-bold" style="width: 300px">
+                                            <form>
+                                                <div class="mb-3">
+                                                    <label for="firstName" class="label">FirstName</label>
+                                                    <input type="text" class="form-control input-xs" id="firstName"
+                                                           placeholder="First name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="lastName" class="label">LastName</label>
+                                                    <input type="text" class="form-control input-xs" id="lastName"
+                                                           placeholder="Last name">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="age" class="label">Age</label>
+                                                    <input type="number" class="form-control input-xs" id="age"
+                                                           placeholder="Age">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="email" class="label">Email</label>
+                                                    <input type="email" class="form-control input-xs" id="email"
+                                                           placeholder="Email">
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="password" class="label">Password</label>
+                                                    <input type="password" class="form-control input-xs" id="password"
+                                                           placeholder="Password">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--Новый пользователь-->
+                        </div>
                     </div>
                 </div>
+                <!--Страница админа-->
+                <!--Страница юзера-->
+                <div class="tab-pane fade" id="user" role="tabpanel" aria-labelledby="user-tab">
+                    <div class="container-fluid">
+                        <h1>User information-page</h1>
+                        <div class="card">
+                            <div class="card-header">
+                                <h5><span class="align-middle">About user</span></h5>
+                            </div>
+                            <div class="card-body table-responsive">
+                                <hr style="color: gray"/>
+                                <table class="table table-striped ">
+                                    <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Age</th>
+                                        <th>Email</th>
+                                        <th>Role</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <td th:text="${user.getId()}"></td>
+                                    <td th:text="${user.getUsername()}"></td>
+                                    <td th:text="${user.getLastname()}"></td>
+                                    <td th:text="${user.getAge()}"></td>
+                                    <td th:text="${user.getEmail()}"></td>
+                                    <td th:text="${user.getStringRoles()}"></td>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--Страница юзера-->
             </div>
         </div>
     </div>
 </div>
+<!--Тело-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 </body>
 </html>
