@@ -20,7 +20,7 @@
             </a>
         </div>
         <div class="navbar-nav">
-            <a class="nav-link" href="/logout">Logout</a>
+            <a class="nav-link" href="/login?logout">Logout</a>
         </div>
     </div>
 </nav>
@@ -127,7 +127,7 @@
                                     </div>
                                     <div class="card-body">
                                         <div class="mx-auto p-4 text-center fw-bold" style="width: 300px">
-                                            <form th:method="POST" th:action="@{/admin/createNewUser}"
+                                            <form th:method="POST" th:action="@{/createNewUser}"
                                                   th:object="${newUser}">
                                                 <div class="mb-3">
                                                     <label for="firstName" class="label">FirstName</label>
@@ -241,22 +241,19 @@
                         <div class="mb-3">
                             <label for="id_edit" class="label">ID</label>
                             <input readonly type="number" class="form-control"
-                                   id="id_edit" th:value="${userEdit.id}" name="id">
+                                   id="id_edit" th:value="*{id}" name="id">
                         </div>
-
-
-
                         <div class="mb-3">
                             <label for="firstName_edit" class="label">FirstName</label>
                             <input type="text" class="form-control"
                                    th:value="*{username}" id="firstName_edit"
-                                   name="firstname" required>
+                                   name="username" required>
                         </div>
                         <div class="mb-3">
                             <label for="lastName_edit" class="label">LastName</label>
                             <input type="text" class="form-control"
                                    th:value="*{lastname}" id="lastName_edit"
-                                   name="lastName" required>
+                                   name="lastname" required>
                         </div>
                         <div class="mb-3">
                             <label for="age_edit" class="label">Age</label>
@@ -267,12 +264,9 @@
                         <div class="mb-3">
                             <label for="email_edit" class="label">Email</label>
                             <input type="email" class="form-control"
-                                   th:value="*{email}" id="email_edit"
+                                   th:value="*{email}" id="email_edit" name="email"
                                    aria-describedby="emailHelp" required>
                         </div>
-
-
-
                         <div class="mb-3">
                             <label for="password_edit" class="label">Password</label>
                             <input type="password" class="form-control"
@@ -318,6 +312,50 @@
             <div class="modal-body">
                 <div class="mx-auto p-4 text-center fw-bold" style="width: 300px">
 
+
+                    <form th:id="'delete_user_form'+${userDelete.getId()}"
+                          th:action="@{/deleteUser/{id}(id=${userDelete.getId()})}" th:object="${userDelete}"
+                          th:method="DELETE">
+                        <div class="mb-3">
+                            <label for="id_delete" class="label">ID</label>
+                            <input readonly type="number" class="form-control"
+                                   id="id_delete" th:value="*{id}" name="id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName_delete" class="label">FirstName</label>
+                            <input readonly type="text" class="form-control"
+                                   th:value="*{username}" id="firstName_delete"
+                                   name="username">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName_delete" class="label">LastName</label>
+                            <input readonly type="text" class="form-control"
+                                   th:value="*{lastname}" id="lastName_delete"
+                                   name="lastname">
+                        </div>
+                        <div class="mb-3">
+                            <label for="age_delete" class="label">Age</label>
+                            <input readonly type="number" class="form-control" th:value="*{age}"
+                                   id="age_delete"
+                                   name="age">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email_delete" class="label">Email</label>
+                            <input readonly type="email" class="form-control"
+                                   th:value="*{email}" id="email_delete" name="email"
+                                   aria-describedby="emailHelp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="role_delete" class="label">Roles</label>
+                            <select readonly id="role_delete" name="roles" multiple class="form-select" size="2"
+                                    aria-label="size 2 select">
+                                <option th:each="role:${listRoles}"
+                                        th:value="${role.getName()}"
+                                        th:text="${role.toString()}">
+                                </option>
+                            </select>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="modal-footer">

@@ -29,6 +29,11 @@ public class UserServiceImp implements UserService {
     }
 
     @Transactional
+    public User getUserByEmail(String email) {
+        return userDao.getUserByEmail(email);
+    }
+
+    @Transactional
     public User getUserById(int id) {
         return userDao.getUserById(id);
     }
@@ -44,8 +49,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Transactional
-    public void deleteUserById(User user) {
-        userDao.deleteUserById(user.getId());
+    public void deleteUserById(int id) {
+        userDao.deleteUserById(id);
     }
 
     @Transactional
@@ -56,7 +61,7 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = getUserByUsername(username);
+        User user = getUserByEmail(username);
         if (user == null) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
