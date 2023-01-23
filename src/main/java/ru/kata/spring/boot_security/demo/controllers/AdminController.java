@@ -27,18 +27,13 @@ public class AdminController {
     public String getAdminPage(Model model, Principal principal) {
         model.addAttribute("user", userServiceImp.getUserByUsername(principal.getName()));
         model.addAttribute("users", userServiceImp.getListOfUsers());
+        model.addAttribute("listRoles", roleServiceImp.getListOfRoles());
+        model.addAttribute("newUser", new User());
         return "admin/adminPage";
     }
 
-    @GetMapping("/createUser")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        model.addAttribute("listRoles", roleServiceImp.getListOfRoles());
-        return "admin/newUser";
-    }
-
     @PostMapping("/createNewUser")
-    public String createUser(@ModelAttribute("user") User user) {
+    public String createUser(@ModelAttribute("newUser") User user) {
         List<Role> listRoles = new ArrayList<>();
         for (Role role : user.getRoles()) {
             listRoles.add(roleServiceImp.getRoleByName(role.getName()));
@@ -48,16 +43,8 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/{id}")
-    public String editUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("user", userServiceImp.getUserById(id));
-        model.addAttribute("listRoles", roleServiceImp.getListOfRoles());
-        return "admin/editUser";
-    }
-
-    @PatchMapping("/editUser/{id}")
-    public String updateUser(@ModelAttribute("user") User user,
-                             @PathVariable("id") int id) {
+    @PatchMapping("/editUser")
+    public String updateUser(User user) {
         List<Role> listRoles = new ArrayList<>();
         for (Role role : user.getRoles()) {
             listRoles.add(roleServiceImp.getRoleByName(role.getName()));
