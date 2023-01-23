@@ -249,25 +249,25 @@
                         <div class="mb-3">
                             <label for="firstName_edit" class="label">FirstName</label>
                             <input type="text" class="form-control"
-                                   th:field="${userEdit.username}" id="firstName_edit"
+                                   th:value="*{username}" id="firstName_edit"
                                    name="firstname" required>
                         </div>
                         <div class="mb-3">
                             <label for="lastName_edit" class="label">LastName</label>
                             <input type="text" class="form-control"
-                                   th:field="${userEdit.lastname}" id="lastName_edit"
+                                   th:value="*{lastname}" id="lastName_edit"
                                    name="lastName" required>
                         </div>
                         <div class="mb-3">
                             <label for="age_edit" class="label">Age</label>
-                            <input type="number" class="form-control" th:field="${userEdit.age}"
+                            <input type="number" class="form-control" th:value="*{age}"
                                    id="age_edit"
                                    name="age" required>
                         </div>
                         <div class="mb-3">
                             <label for="email_edit" class="label">Email</label>
                             <input type="email" class="form-control"
-                                   th:field="${userEdit.email}" id="email_edit"
+                                   th:value="*{email}" id="email_edit"
                                    aria-describedby="emailHelp" required>
                         </div>
 
