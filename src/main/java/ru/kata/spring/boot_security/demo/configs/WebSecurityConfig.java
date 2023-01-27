@@ -22,22 +22,27 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         this.userService = userService;
     }
 
+//    @Override
+//    protected void configure(HttpSecurity http) throws Exception {
+//        http
+//                .authorizeRequests()
+//                .antMatchers("/admin/**").hasRole("ADMIN")
+//                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
+//                .antMatchers("/").permitAll()
+//                .anyRequest().authenticated()
+//                .and()
+//                .formLogin().successHandler(successUserHandler)
+//                .loginPage("/login")
+//                .permitAll()
+//                .and()
+//                .logout()
+//                .logoutSuccessUrl("/")
+//                .permitAll();
+//    }
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/admin/**").hasRole("ADMIN")
-                .antMatchers("/user/**").hasAnyRole("USER", "ADMIN")
-                .antMatchers("/").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .formLogin().successHandler(successUserHandler)
-                .loginPage("/login")
-                .permitAll()
-                .and()
-                .logout()
-                .logoutSuccessUrl("/")
-                .permitAll();
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.csrf().disable().authorizeRequests().antMatchers("/").permitAll();
     }
 
     @Bean
