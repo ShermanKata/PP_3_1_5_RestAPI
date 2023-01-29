@@ -185,6 +185,91 @@
 
 
 
+<!--Modal редактировать Юзера-->
+<div id="editUserModal" class="modal fade" tabindex="-1"
+     aria-labelledby="editUserModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserModalLabel">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mx-auto p-4 text-center fw-bold" style="width: 300px">
+                    <form id="edit_user_form">
+                        <div class="mb-3">
+                            <label for="id_edit" class="label">ID</label>
+                            <input readonly type="number" class="form-control"
+                                   id="id_edit" name="id">
+                        </div>
+                        <div class="mb-3">
+                            <label for="firstName_edit" class="label">FirstName</label>
+                            <input type="text" class="form-control"
+                                   id="firstName_edit"
+                                   name="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastName_edit" class="label">LastName</label>
+                            <input type="text" class="form-control"
+                                   id="lastName_edit"
+                                   name="lastname" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="age_edit" class="label">Age</label>
+                            <input type="number" class="form-control"
+                                   id="age_edit"
+                                   name="age" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email_edit" class="label">Email</label>
+                            <input type="email" class="form-control"
+                                   id="email_edit" name="email"
+                                   aria-describedby="emailHelp" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password_edit" class="label">Password</label>
+                            <input type="password" class="form-control"
+                                   id="password_edit" name="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="role_edit" class="label">Roles</label>
+                            <select id="role_edit" name="roles" multiple class="form-select" size="2"
+                                    aria-label="size 2 select"
+                                    required>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"
+                        data-bs-dismiss="modal">Close
+                </button>
+                <button type="submit" form="edit_user_form"
+                        class="btn btn-primary">Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--Modal редактировать Юзера-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <!--Modal удалить Юзера-->
 <div id="deleteUserModal" class="modal fade" tabindex="-1"

@@ -16,7 +16,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImp implements UserService {
-
     private UserDao userDao;
 
     public UserServiceImp(UserDao userDao) {

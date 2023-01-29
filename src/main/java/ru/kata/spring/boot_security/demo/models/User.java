@@ -103,14 +103,6 @@ public class User implements UserDetails {
         return roles;
     }
 
-    public String getStringRoles() {
-        List<String> list = roles.stream()
-                .map(r->r.toString())
-                .sorted()
-                .collect(Collectors.toList());
-        return String.join(" ", list);
-    }
-
     public void setRoles(List<Role> roles) {
         this.roles = roles;
     }
