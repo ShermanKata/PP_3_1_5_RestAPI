@@ -10,7 +10,6 @@ import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
 
 import java.security.Principal;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/users")
@@ -23,8 +22,8 @@ public class AdminRestController {
     }
 
     @GetMapping
-    public List<User> getAllUsers() {
-        return userService.getListOfUsers();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return new ResponseEntity<>(userService.getListOfUsers(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -46,9 +45,9 @@ public class AdminRestController {
     }
 
     @PostMapping
-    public ResponseEntity<HttpStatus> createUser(@RequestBody User user) {
+    public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.addUser(user);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PatchMapping

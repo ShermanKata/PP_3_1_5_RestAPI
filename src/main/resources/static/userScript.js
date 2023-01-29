@@ -4,7 +4,7 @@ const currentUser = fetch(urlUser).then(response => response.json())
 
 // Заполнение шапки
 currentUser.then(user => {
-        let roles = '';
+        let roles = ''
         user.roles.forEach(role => {
             roles += ' '
             roles += role.name.replace("ROLE_", "")
@@ -16,20 +16,21 @@ currentUser.then(user => {
 
 // Заполнение информации о пользователе
 currentUser.then(user => {
-        let roles = '';
+        let roles = ''
         user.roles.forEach(role => {
             roles += ' '
             roles += role.name.replace("ROLE_", "")
         })
 
-        let result = '';
+        let result = ''
         result += `<tr>
                     <td>${user.id}</td>
                     <td>${user.username}</td>
                     <td>${user.lastname}</td>
                     <td>${user.age}</td>
                     <td>${user.email}</td>
-                    <td>${roles}</td>`
-        document.getElementById("user-info").innerHTML = result
+                    <td>${roles}</td>
+                   </tr>`
+        document.getElementById("user-info-table").innerHTML = result
     }
 )
