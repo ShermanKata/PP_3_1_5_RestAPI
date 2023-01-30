@@ -1,5 +1,5 @@
-const urlUsers = '/api/users/';
-const urlRoles = '/api/roles/';
+const urlUsers = '/admin/users/';
+const urlRoles = '/admin/roles/';
 
 const allUsers = fetch(urlUsers).then(response => response.json())
 const allRoles = fetch(urlRoles).then(response => response.json())
