@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.restControllers;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +20,6 @@ public class RolesRestController {
 
     @GetMapping
     public ResponseEntity<List<Role>> getAllRoles() {
-        return new ResponseEntity<>(roleService.getListOfRoles(), HttpStatus.OK);
+        return ResponseEntity.ok(roleService.getListOfRoles());
     }
 }

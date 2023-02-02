@@ -5,7 +5,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.models.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
-import ru.kata.spring.boot_security.demo.util.UserErrorResponse;
 import ru.kata.spring.boot_security.demo.util.UserNotFoundException;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public class AdminRestController {
 
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
-        return new ResponseEntity<>(userService.getListOfUsers(), HttpStatus.OK);
+        return ResponseEntity.ok(userService.getListOfUsers());
     }
 
     @GetMapping("/{id}")
@@ -30,22 +29,13 @@ public class AdminRestController {
         if (user == null) {
             throw new UserNotFoundException();
         }
-        return new ResponseEntity<>(user, HttpStatus.OK);
-    }
-
-    @ExceptionHandler
-    private ResponseEntity<UserErrorResponse> handleException(UserNotFoundException e) {
-        UserErrorResponse response = new UserErrorResponse(
-                "User not found",
-                System.currentTimeMillis()
-        );
-        return new ResponseEntity<>(response, HttpStatus.NOT_FOUND);
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping
     public ResponseEntity<User> createUser(@RequestBody User user) {
         userService.addUser(user);
-        return new ResponseEntity<>(user, HttpStatus.OK);
+        return ResponseEntity.ok(user);
     }
 
     @PatchMapping
@@ -55,7 +45,7 @@ public class AdminRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable ("id") int id) {
+    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("id") int id) {
         User user = userService.getUserById(id);
         if (user == null) {
             throw new UserNotFoundException();

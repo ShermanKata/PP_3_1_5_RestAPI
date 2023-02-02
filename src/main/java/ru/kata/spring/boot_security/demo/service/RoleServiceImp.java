@@ -1,26 +1,21 @@
 package ru.kata.spring.boot_security.demo.service;
 
 import org.springframework.stereotype.Service;
-import ru.kata.spring.boot_security.demo.dao.RoleDao;
 import ru.kata.spring.boot_security.demo.models.Role;
+import ru.kata.spring.boot_security.demo.repository.RoleRepository;
 
 import java.util.List;
 
 @Service
 public class RoleServiceImp implements RoleService {
-    private RoleDao roleDao;
+    private RoleRepository roleRepository;
 
-    public RoleServiceImp(RoleDao roleDao) {
-        this.roleDao = roleDao;
-    }
-
-    @Override
-    public Role getRoleByName(String name) {
-        return roleDao.getRoleByName(name);
+    public RoleServiceImp(RoleRepository roleRepository) {
+        this.roleRepository = roleRepository;
     }
 
     @Override
     public List<Role> getListOfRoles() {
-        return roleDao.getListOfRoles();
+        return roleRepository.findAll();
     }
 }
